@@ -8,7 +8,6 @@ class CounterView extends GetView<CounterController> {
   const CounterView({super.key});
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(title: const Text('CounterView'), centerTitle: true),
       body: Center(
@@ -21,13 +20,18 @@ class CounterView extends GetView<CounterController> {
                 style: TextStyle(fontSize: controller.hitung.toDouble()),
               ),
             ),
-            ElevatedButton(
-              onPressed: controller.increment,
-              child: Text('increment'),
-            ),
-            ElevatedButton(
-              onPressed: controller.decrement,
-              child: Text('decrement'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: controller.increment,
+                  child: Text('increment'),
+                ),
+                ElevatedButton(
+                  onPressed: controller.decrement,
+                  child: Text('decrement'),
+                ),
+              ],
             ),
           ],
         ),
