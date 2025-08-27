@@ -111,7 +111,7 @@ class FormPendaftaranView extends GetView<FormPendaftaranController> {
                   },
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    labelText: 'nomor Telepon',
+                    labelText: 'Nomor Telepon',
                     errorText: controller.phoneError.value.isNotEmpty
                         ? controller.phoneError.value
                         : null,
