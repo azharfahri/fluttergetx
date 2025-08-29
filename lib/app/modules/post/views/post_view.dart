@@ -66,7 +66,7 @@ class PostView extends GetView<PostController> {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-             //onTap: () => Get.to(() => PostDetailView(post: post)),
+              onTap: () => Get.to(() => PostDetailView(post: post)),
             );
           },
         );
