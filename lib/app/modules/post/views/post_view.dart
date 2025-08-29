@@ -6,8 +6,8 @@ import '../controllers/post_controller.dart';
 
 class PostView extends GetView<PostController> {
   PostView({Key? key}) : super(key: key);
-
   PostController controller = Get.put(PostController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,17 +45,28 @@ class PostView extends GetView<PostController> {
           itemBuilder: (ctx, i) {
             final post = posts[i];
             return ListTile(
-              leading: Image.network(
-                'https://picsum.photos/id/${post.id % 1000}/64/64',
-                fit: BoxFit.cover,
-              ),
-              title: Text(post.title),
+              leading: post.foto != null
+                  ? Image.network(
+                      // kalau foto dari API ada, tampilkan
+                      "http://127.0.0.1:8000/storage/${post.foto}",
+                      width: 64,
+                      height: 64,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.network(
+                      // fallback pakai dummy image
+                      "https://picsum.photos/id/${post.id ?? 1}/64/64",
+                      width: 64,
+                      height: 64,
+                      fit: BoxFit.cover,
+                    ),
+              title: Text(post.title ?? "Tanpa Judul"),
               subtitle: Text(
-                post.body,
+                post.content ?? "-",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              onTap: () => Get.to(() => PostDetailView(post: post)),
+             //onTap: () => Get.to(() => PostDetailView(post: post)),
             );
           },
         );

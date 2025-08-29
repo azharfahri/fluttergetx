@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 class PostController extends GetxController {
   final PostService _postService = Get.put<PostService>(PostService());
 
-  RxList posts = <Post>[].obs;
+  // karena yang mau ditampung adalah list Post, bukan PostModel
+  RxList<Post> posts = <Post>[].obs;  
   RxBool isLoading = true.obs;
   RxString errorMessage = ''.obs;
 
@@ -19,11 +20,16 @@ class PostController extends GetxController {
     try {
       isLoading(true);
       errorMessage('');
+
       final response = await _postService.fetchPosts();
+
       if (response.statusCode == 200) {
-        var data = response.body!
-            .map((postJson) => Post.fromJson(postJson))
-            .toList();
+        // parsing ke PostModel
+        final postModel = PostModel.fromJson(response.body);
+
+        // ambil data List<Post> dari dalam postModel
+        final data = postModel.data ?? [];
+
         posts.assignAll(data);
       } else {
         errorMessage('Error: ${response.statusText}');
